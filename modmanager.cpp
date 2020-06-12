@@ -2,8 +2,9 @@
 #include <vector>
 #include "modmanager.h"
 
+using namespace std;
 
-ModManager::ModManager(std::string directory)
+ModManager::ModManager(string directory)
 {
 	m_directory=directory;
 }
