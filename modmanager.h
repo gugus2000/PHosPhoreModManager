@@ -12,8 +12,9 @@ class ModManager
 	ModManager(std::string directory);
 	std::vector<Mod> scan();
 	void update();
-	void add(Mod const& mod);
-	void del(Mod const& mod);
+	void add(std::string path);
+	void del(std::string name);
+	void display() const;
 
 	private:
 

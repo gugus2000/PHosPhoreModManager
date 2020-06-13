@@ -3,11 +3,30 @@
 
 using namespace std;
 
-Mod::Mod(string xml)
+Mod::Mod(string name, string description, string version, string content)
 {
-	m_name=xml;
+	m_name=name;
+	m_description=description;
+	m_version=version;
+	m_content=content;
 }
-string Mod::getName()
+string Mod::getName() const
 {
 	return m_name;
+}
+string Mod::getDescription() const
+{
+	return m_description;
+}
+string Mod::getVersion() const
+{
+	return m_version;
+}
+string Mod::getContent() const
+{
+	return m_content;
+}
+string Mod::display() const
+{
+	return m_name + " v" + m_version;
 }
