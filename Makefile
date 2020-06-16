@@ -2,13 +2,13 @@ CC=gcc
 CXX=g++
 RM=rm -rf
 CFLAGS=
-CXXFLAGS=
+CXXFLAGS=-std=c++17
 CPPFLAGS=-g $(shell root-config --cflags)
 LDFLAGS=-g $(shell root-config --ldflags)
 LDCLIBS=$(shell root-config --libs)
 EXEC=phosphoremodmanager
 
-SRCS=mod.cpp modmanager.cpp func.cpp
+SRCS=mod.cpp modmanager.cpp func.cpp tinyxml2.cpp
 OBJS=$(subst .cpp,.o,$(SRCS))
 
 all: $(EXEC)

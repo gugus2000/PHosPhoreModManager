@@ -2,12 +2,14 @@
 #define MOD_H_INCLUDED
 
 #include <string>
+#include "tinyxml2.h"
 
 class Mod
 {
 	public:
 
 	Mod(std::string name, std::string description, std::string version, std::string content="");
+	Mod(std::string xml);
 	std::string getName() const;
 	std::string getDescription() const;
 	std::string getVersion() const;

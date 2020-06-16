@@ -3,7 +3,10 @@
 
 #include <string>
 #include <vector>
+#include <filesystem>
 #include "mod.h"
+
+namespace fs = std::filesystem;
 
 class ModManager
 {
@@ -18,7 +21,7 @@ class ModManager
 
 	private:
 
-	std::string m_directory;
+	fs::path m_directory;
 	std::vector<Mod> m_mods;
 };
 
