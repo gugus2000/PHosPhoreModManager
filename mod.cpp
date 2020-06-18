@@ -1,14 +1,15 @@
 #include <string>
+#include <vector>
 #include "mod.h"
 
 using namespace std;
 
-Mod::Mod(string name, string description, string version, string content)
+Mod::Mod(string name, string description, string version, vector<string> files)
 {
 	m_name=name;
 	m_description=description;
 	m_version=version;
-	m_content=content;
+	m_files=files;
 }
 Mod::Mod(string xml)
 {
@@ -21,6 +22,34 @@ Mod::Mod(string xml)
 	m_description=description->Value();
 	tinyxml2::XMLText* version = doc.FirstChildElement("mod")->FirstChildElement("version")->FirstChild()->ToText();
 	m_version=version->Value();
+	tinyxml2::XMLElement* content = doc.FirstChildElement("mod")->FirstChildElement("content");
+	m_files=this->retrieveFiles(content, "", true);
+}
+vector<string> Mod::retrieveFiles(tinyxml2::XMLElement* content, string name, bool ignore) const
+{
+	vector<string> files, files_insert;
+	string name_insert;
+	tinyxml2::XMLElement* folder(content->FirstChildElement());
+	while(folder!=NULL)
+	{
+		if (ignore)
+		{
+			name_insert=name;
+		}
+		else
+		{
+			name_insert=name+content->Value()+"/";
+		}
+		files_insert=this->retrieveFiles(folder, name_insert);
+		files.insert(end(files),begin(files_insert),end(files_insert));
+		folder = folder->NextSiblingElement();
+	}
+	if (ignore)
+	{
+		return files;
+	}
+	files.push_back(name+content->Value());
+	return files;
 }
 string Mod::getName() const
 {
@@ -34,9 +63,9 @@ string Mod::getVersion() const
 {
 	return m_version;
 }
-string Mod::getContent() const
+vector<string> Mod::getFiles() const
 {
-	return m_content;
+	return m_files;
 }
 string Mod::display() const
 {

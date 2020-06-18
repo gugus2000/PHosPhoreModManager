@@ -19,6 +19,10 @@ ModManager::ModManager(string directory)
 vector<Mod> ModManager::scan()
 {
 	fs::path mod_directory(m_directory/"mod");
+	if (!fs::exists(mod_directory))
+	{
+		fs::create_directory(mod_directory);
+	}
 	for (const auto & entry : fs::recursive_directory_iterator(mod_directory))
 	{
 		if (entry.path().filename()=="mod.xml")
@@ -42,7 +46,32 @@ void ModManager::del(string name)
 	{
 		if (mod.getName()==name)
 		{
-			cout << mod.display() << endl;
+			fs::path all;
+			for (fs::path file : mod.getFiles())
+			{
+				all=m_directory/file;
+				if (!fs::exists(all))
+				{
+					cout << "This file or folder does not exist" << endl;
+				}
+				else
+				{
+					fs::directory_entry File(all);
+					if (File.is_regular_file())
+					{
+						cout << all << " removed" << endl;
+						fs::remove(all);
+					}
+					else if (File.is_directory())
+					{
+						if (fs::is_empty(all))
+						{
+							cout << all << " removed because it was empty" << endl;
+							fs::remove(all);
+						}
+					}
+				}
+			}
 			return;
 		}
 	}
