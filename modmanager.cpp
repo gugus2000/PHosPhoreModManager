@@ -13,7 +13,8 @@ ModManager::ModManager(string directory)
 	fs::directory_entry directory_entry(m_directory);
 	if (!directory_entry.is_directory())
 	{
-		throw "It is not a directory";
+		string message(directory + " is not a directory");
+		throw message;
 	}
 }
 vector<Mod> ModManager::scan()

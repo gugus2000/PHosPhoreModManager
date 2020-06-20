@@ -7,15 +7,22 @@
 
 using namespace std;
 
-int main()
+int main(int argc, char* argv[])
 {
-	cout << "Enter the directory you want to manage: ";
 	string path("/var/www/phosphore/");
 	string mod_dir("/etc/phosphore/mod/example/");
 	string mod_name("example");
 	map<string, int> command_map(command_map_init());
 	string command("update");
-	cin >> path;
+	if (argc<2)
+	{
+		cout << "Enter the directory you want to manage: ";
+		cin >> path;
+	}
+	else
+	{
+		path=argv[1];
+	}
 	do
 	{
 		try
@@ -23,8 +30,15 @@ int main()
 			ModManager modManager(path);
 			vector<Mod> mods(modManager.scan());
 			modManager.display();
-			cout << "Command (h for help/q for quit): ";
-			cin >> command;
+			if (argc<3)
+			{
+				cout << "Command (h for help/q for quit): ";
+				cin >> command;
+			}
+			else
+			{
+				command=argv[2];
+			}
 			switch (command_map[command])
 			{
 				case 2:
@@ -33,15 +47,29 @@ int main()
 					break;
 
 				case 3:
-					cout << "Enter the main directory of the mod to add: ";
-					cin >> mod_dir;
+					if (argc<4)
+					{
+						cout << "Enter the main directory of the mod to add: ";
+						cin >> mod_dir;
+					}
+					else
+					{
+						mod_dir=argv[3];
+					}
 					modManager.add(mod_dir);
 					cout << mod_dir << " mod added to the directory" << endl;
 					break;
 
 				case 4:
-					cout << "Enter the name of the mod to delete: ";
-					cin >> mod_name;
+					if (argc<4)
+					{
+						cout << "Enter the name of the mod to delete: ";
+						cin >> mod_name;
+					}
+					else
+					{
+						mod_name=argv[3];
+					}
 					modManager.del(mod_name);
 					cout << mod_name << " removed from the directory" << endl;
 					break;
@@ -64,7 +92,11 @@ int main()
 					cout << "unknow command, type help to get a lis of available command" << endl;
 					break;
 			}
-		} catch (const char* msg)
+			if (argc>2)
+			{
+				return 0;
+			}
+		} catch (const string msg)
 		{
 			cerr << msg << endl;
 			cout << "Enter the directory you want to manage: ";
