@@ -4,7 +4,7 @@ CXX=g++ -Wall
 WIN-CXX=x86_64-w64-mingw32-g++ -Wall
 RM=rm -rf
 CFLAGS=
-CXXFLAGS=-std=c++17
+CXXFLAGS=-std=c++17 --static
 CPPFLAGS=-g
 LDFLAGS=-g
 LDCLIBS=
