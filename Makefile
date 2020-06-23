@@ -5,9 +5,9 @@ WIN-CXX=x86_64-w64-mingw32-g++
 RM=rm -rf
 CFLAGS=
 CXXFLAGS=-std=c++17
-CPPFLAGS=-g $(shell root-config --cflags)
-LDFLAGS=-g $(shell root-config --ldflags)
-LDCLIBS=$(shell root-config --libs)
+CPPFLAGS=-g
+LDFLAGS=-g
+LDCLIBS=
 EXEC=phosphoremodmanager phosphoremodmanager.exe
 
 SRCS=mod.cpp modmanager.cpp func.cpp tinyxml2.cpp
@@ -29,7 +29,7 @@ phosphoremodmanager.exe: $(WIN-OBJS) main.cpp
 	$(WIN-CXX) $(CXXFLAGS) -c -o $@ $<
 
 clean:
-	$(RM) $(OBJS)
+	$(RM) $(OBJS) $(WIN-OBJS)
 
 mrproper:
 	$(RM) $(EXEC)

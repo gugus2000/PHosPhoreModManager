@@ -28,7 +28,7 @@ vector<Mod> ModManager::scan()
 	{
 		if (entry.path().filename()=="mod.xml")
 		{
-			Mod mod(entry.path());
+			Mod mod(entry.path().string());
 			m_mods.push_back(mod);
 		}
 	}
