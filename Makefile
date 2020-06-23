@@ -1,7 +1,7 @@
 CC=gcc
 WIN-CC=x86_64-w64-mingw32-gcc
-CXX=g++
-WIN-CXX=x86_64-w64-mingw32-g++
+CXX=g++ -Wall
+WIN-CXX=x86_64-w64-mingw32-g++ -Wall
 RM=rm -rf
 CFLAGS=
 CXXFLAGS=-std=c++17
@@ -20,7 +20,7 @@ phosphoremodmanager: $(OBJS) main.cpp
 	$(CXX) $(LDFLAGS) $(CXXFLAGS) -o $@ main.cpp $(OBJS) $(LDCLIBS)
 
 phosphoremodmanager.exe: $(WIN-OBJS) main.cpp
-	$(WIN-CXX) $(LDFLAGS) $(CXXFLAGS) -o $@ main.cpp $(OBJS) $(LDCLIBS)
+	$(WIN-CXX) $(LDFLAGS) $(CXXFLAGS) -o $@ main.cpp $(WIN-OBJS) $(LDCLIBS) -lstdc++fs
 
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
