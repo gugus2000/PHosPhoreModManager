@@ -61,21 +61,20 @@ void Mod::check(string path)
 	FILE* modfile;
 	doc.LoadFile(pathmodxml.c_str());
 	tinyxml2::XMLElement* content=doc.FirstChildElement("mod")->FirstChildElement("content");
-	this->checkContent(path, content);
+	this->checkContent(doc, path, content);
 	modfile=fopen(path.c_str(), "a+");
 	tinyxml2::XMLPrinter printer(modfile);
 	doc.Print(&printer);
 }
-void Mod::checkContent(string path, tinyxml2::XMLElement* element)
+void Mod::checkContent(tinyxml2::XMLDocument doc, string path, tinyxml2::XMLElement* element)
 {
 	for(const auto& isEntry:fs::recursive_directory_iterator(path))
 	{
-		tinyxml2::XMLDocument doc;
 		tinyxml2::XMLElement* node=doc.NewElement(isEntry.path().filename().c_str());
 		node->SetValue(isEntry.path().filename().c_str());
 		if(isEntry.is_directory())
 		{
-		  this->checkContent(isEntry.path().c_str(), node);
+		  this->checkContent(doc, isEntry.path().c_str(), node);
 		}
 		element->InsertEndChild(node);
 	}
