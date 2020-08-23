@@ -70,7 +70,7 @@ void Mod::checkContent(string path, tinyxml2::XMLElement* element)
 {
 	for(const auto& isEntry:fs::recursive_directory_iterator(path))
 	{
-		tinyxml2::XMLElement* node;
+	  tinyxml2::XMLElement* node();
 		node->SetValue(isEntry.path().filename().c_str());
 		if(isEntry.is_directory())
 		{
