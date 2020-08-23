@@ -59,10 +59,10 @@ void Mod::check(string path)
 	string pathmodxml(path+"/mod/"+m_name+"/mod.xml");
 	tinyxml2::XMLDocument doc;
 	ofstream modfile;
-	doc.LoadFile(const pathmodxml.c_str());
+	doc.LoadFile(pathmodxml.c_str());
 	tinyxml2::XMLElement* content=doc.FirstChildElement("mod")->FirstChildElement("content");
 	this->checkContent(path, content);
-	modfile=fopen(path, "a+");
+	modfile=fopen(path.c_str(), "a+");
 	tinyxml2::XMLPrinter printer(modfile);
 	doc.Print(&printer);
 }
