@@ -58,7 +58,7 @@ void Mod::check(string path)
 {
 	string pathmodxml(path+"/mod/"+m_name+"/mod.xml");
 	tinyxml2::XMLDocument doc;
-	ofstream modfile;
+	FILES* modfile;
 	doc.LoadFile(pathmodxml.c_str());
 	tinyxml2::XMLElement* content=doc.FirstChildElement("mod")->FirstChildElement("content");
 	this->checkContent(path, content);
