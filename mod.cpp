@@ -52,12 +52,12 @@ vector<string> Mod::retrieveFiles(tinyxml2::XMLElement* content, string name, bo
 	files.push_back(name+content->Value());
 	return files;
 }
-void Mod:check(string path)
+void Mod::check(string path)
 {
 	string pathmodxml(path+"/mod/"+m_name+"/mod.xml");
 	tinyxml2::XMLDocument doc;
-	const char* pathmodxml_char = pathmodxml.c_str();
-	doc.LoadFile(pathmodxml_char);
+	ofstream modfile;
+	doc.LoadFile(pathmodxml);
 	tinyxml2::XMLElement* content=doc.FirstChildElement("mod")->FirstChildElement("content");
 	this->checkContent(path, &content);
 	modfile=fopen(path, "a+");
@@ -73,7 +73,7 @@ void Mod::checkContent(string path, tinyxml2::XMLElement* element)
 		{
 			this->checkContent(isEntry.path(), &node);
 		}
-		node->setValue(isEntry.path().filename());
+		node->SetValue(isEntry.path().filename());
 		element->InsertEndChild(node);
 	}
 }
