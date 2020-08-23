@@ -89,7 +89,7 @@ int main(int argc, char* argv[])
 					return 0;
 
 				default:
-					cout << "unknow command, type help to get a lis of available command" << endl;
+					cout << "unknow command, type help to get a list of available command" << endl;
 					break;
 			}
 			if (argc>2)
