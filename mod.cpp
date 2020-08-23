@@ -59,7 +59,7 @@ void Mod::check(string path)
 	string pathmodxml(path+"/mod/"+m_name+"/mod.xml");
 	tinyxml2::XMLDocument doc;
 	ofstream modfile;
-	doc.LoadFile(pathmodxml.c_str());
+	doc.LoadFile(const pathmodxml.c_str());
 	tinyxml2::XMLElement* content=doc.FirstChildElement("mod")->FirstChildElement("content");
 	this->checkContent(path, content);
 	modfile=fopen(path, "a+");
@@ -73,7 +73,7 @@ void Mod::checkContent(string path, tinyxml2::XMLElement* element)
 		tinyxml2::XMLElement* node;
 		if(isEntry.is_directory())
 		{
-			this->checkContent(isEntry.path(), &node);
+			this->checkContent(isEntry.path(), node);
 		}
 		node->SetValue(isEntry.path().filename());
 		element->InsertEndChild(node);
