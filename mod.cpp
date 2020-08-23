@@ -71,11 +71,11 @@ void Mod::checkContent(string path, tinyxml2::XMLElement* element)
 	for(const auto& isEntry:fs::recursive_directory_iterator(path))
 	{
 		tinyxml2::XMLElement* node;
+		node->SetValue(isEntry.path().filename().c_str());
 		if(isEntry.is_directory())
 		{
 		  this->checkContent(isEntry.path().c_str(), node);
 		}
-		node->SetValue(isEntry.path().filename().c_str());
 		element->InsertEndChild(node);
 	}
 }
