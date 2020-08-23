@@ -75,7 +75,7 @@ void Mod::checkContent(string path, tinyxml2::XMLElement* element)
 		{
 			this->checkContent(isEntry.path(), node);
 		}
-		node->SetValue(isEntry.path().filename());
+		node->SetValue(isEntry.path().filename().c_str());
 		element->InsertEndChild(node);
 	}
 }
