@@ -40,7 +40,7 @@ void ModManager::update()
 void ModManager::add(string path)
 {
 	fs::path pathmod(path);
-	Mod mod(path+"mod/"+pathmod.parent_path().filename().c_string()+"/mod.xml");
+	Mod mod(path+"mod/"+pathmod.parent_path().filename().c_str()+"/mod.xml");
 	mod.check(path);
 	fs::copy(path, m_directory, fs::copy_options::recursive | fs::copy_options::overwrite_existing);
 }
