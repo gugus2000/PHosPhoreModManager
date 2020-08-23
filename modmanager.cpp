@@ -92,5 +92,5 @@ void ModManager::display() const
 		cout << m_mods[i].display() << endl;
 	}
 	cout << nb_mods << " mods installed" << endl;
-	cout << "====== MODMANAGER ======" << endl;
+	cout << "========================" << endl;
 }
