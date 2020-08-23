@@ -3,6 +3,7 @@
 #include "mod.h"
 
 using namespace std;
+namespace fs = std::filesystem;
 
 Mod::Mod(string name, string description, string version, vector<string> files)
 {
@@ -50,6 +51,31 @@ vector<string> Mod::retrieveFiles(tinyxml2::XMLElement* content, string name, bo
 	}
 	files.push_back(name+content->Value());
 	return files;
+}
+void Mod:check(string path)
+{
+	string pathmodxml(path+"/mod/"+m_name+"/mod.xml");
+	tinyxml2::XMLDocument doc;
+	const char* pathmodxml_char = pathmodxml.c_str();
+	doc.LoadFile(pathmodxml_char);
+	tinyxml2::XMLElement* content=doc.FirstChildElement("mod")->FirstChildElement("content");
+	this->checkContent(path, &content);
+	modfile=fopen(path, "a+");
+	tinyxml2::XMLPrinter printer(modfile);
+	doc.Print(&printer);
+}
+void Mod::checkContent(string path, tinyxml2::XMLElement* element)
+{
+	for(const auto& isEntry:fs::recursive_directory_iterator(path))
+	{
+		tinyxml2::XMLElement* node;
+		if(isEntry.is_directory())
+		{
+			this->checkContent(isEntry.path(), &node);
+		}
+		node->setValue(isEntry.path().filename());
+		element->InsertEndChild(node);
+	}
 }
 string Mod::getName() const
 {

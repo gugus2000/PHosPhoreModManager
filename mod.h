@@ -12,6 +12,8 @@ class Mod
 	Mod(std::string name, std::string description, std::string version, std::vector<std::string> files);
 	Mod(std::string xml);
 	std::vector<std::string> retrieveFiles(tinyxml2::XMLElement* content, std::string name="", bool ignore=false) const;
+	void check(std::string path);
+	void checkContent(std::string, tinyxml2::XMLElement* element);
 	std::string getName() const;
 	std::string getDescription() const;
 	std::string getVersion() const;
