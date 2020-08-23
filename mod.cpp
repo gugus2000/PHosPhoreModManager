@@ -66,7 +66,7 @@ void Mod::check(string path)
 	tinyxml2::XMLPrinter printer(modfile);
 	doc.Print(&printer);
 }
-void Mod::checkContent(tinyxml2::XMLDocument doc, string path, tinyxml2::XMLElement* element)
+void Mod::checkContent(tinyxml2::XMLDocument &doc, string path, tinyxml2::XMLElement* element)
 {
 	for(const auto& isEntry:fs::recursive_directory_iterator(path))
 	{
